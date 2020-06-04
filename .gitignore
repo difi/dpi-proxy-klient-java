@@ -1,0 +1,15 @@
+target
+.cache
+.classpath
+.project
+.settings/*
+*.iml
+*.p12
+*.jceks
+
+#Ignore all intellij files
+.idea/*
+
+# ... except these
+!.idea/codeStyleSettings.xml
+!.settings/org.eclipse.jdt.ui.prefs
