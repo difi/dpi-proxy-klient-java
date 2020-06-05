@@ -2,7 +2,6 @@ package no.difi.sdp.client2.domain;
 
 import no.difi.sdp.client2.domain.digital_post.DigitalPost;
 import no.difi.sdp.client2.domain.fysisk_post.FysiskPost;
-import no.digipost.api.PMode;
 
 import java.util.UUID;
 
@@ -12,13 +11,14 @@ import static no.difi.sdp.client2.domain.Forsendelse.Type.FYSISK;
 public class Forsendelse {
 
 	public enum Type {
-		DIGITAL(PMode.Action.FORMIDLE_DIGITAL),
-        FYSISK(PMode.Action.FORMIDLE_FYSISK);
+        DIGITAL("urn:no:difi:digitalpost:xsd:digital::digital"),
+        FYSISK("urn:no:difi:digitalpost:xsd:fysisk::print"),
+        ;
 
-        public final PMode.Action action;
+        public final String type;
 
-        Type(PMode.Action action) {
-            this.action = action;
+        Type(String type) {
+            this.type = type;
         }
     }
 
@@ -26,22 +26,24 @@ public class Forsendelse {
     private final DigitalPost digitalPost;
     private final FysiskPost fysiskPost;
     private final Dokumentpakke dokumentpakke;
+    private final Mottaker mottaker;
     private final Avsender avsender;
     private String konversasjonsId = UUID.randomUUID().toString();
-    private Prioritet prioritet = Prioritet.NORMAL;
     private String spraakkode = "NO";
     private String mpcId;
 
-    private Forsendelse(Avsender avsender, DigitalPost digitalPost, Dokumentpakke dokumentpakke) {
-    	this.type = DIGITAL;
+    private Forsendelse(Avsender avsender, DigitalPost digitalPost, Dokumentpakke dokumentpakke, Mottaker mottaker) {
+        this.mottaker = mottaker;
+        this.type = DIGITAL;
         this.avsender = avsender;
         this.digitalPost = digitalPost;
         this.fysiskPost = null;
         this.dokumentpakke = dokumentpakke;
     }
 
-    private Forsendelse(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke) {
-    	this.type = FYSISK;
+    private Forsendelse(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke, Mottaker mottaker) {
+        this.mottaker = mottaker;
+        this.type = FYSISK;
     	this.avsender = avsender;
     	this.dokumentpakke = dokumentpakke;
     	this.fysiskPost = fysiskPost;
@@ -60,12 +62,15 @@ public class Forsendelse {
 		return fysiskPost;
     }
 
-    public Dokumentpakke getDokumentpakke() {
-        return dokumentpakke;
+    public ForretningsMelding getForretningsMelding() {
+        if (digitalPost != null) {
+            return digitalPost;
+        } else
+        return (fysiskPost);
     }
 
-    public Prioritet getPrioritet() {
-        return prioritet;
+    public Dokumentpakke getDokumentpakke() {
+        return dokumentpakke;
     }
 
     public String getSpraakkode() {
@@ -74,6 +79,15 @@ public class Forsendelse {
 
     public String getMpcId() {
         return mpcId;
+    }
+
+    /**
+     *
+     * @return returnerer alltid Prioritet.NORMAL.
+     */
+    @Deprecated
+    public Prioritet getPrioritet() {
+        return Prioritet.NORMAL;
     }
 
     public Avsender getAvsender() {
@@ -90,8 +104,8 @@ public class Forsendelse {
         return new Builder(avsender, digitalPost, dokumentpakke);
     }
 
-	public static Builder fysisk(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke) {
-	    return new Builder(avsender, fysiskPost, dokumentpakke);
+	public static Builder fysisk(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke, Mottaker mottaker) {
+	    return new Builder(avsender, fysiskPost, dokumentpakke, mottaker);
     }
 
     public static class Builder {
@@ -100,11 +114,11 @@ public class Forsendelse {
         private boolean built = false;
 
         private Builder(Avsender avsender, DigitalPost digitalPost, Dokumentpakke dokumentpakke) {
-            this.target = new Forsendelse(avsender, digitalPost, dokumentpakke);
+            this.target = new Forsendelse(avsender, digitalPost, dokumentpakke, digitalPost.getMottaker());
         }
 
-        private Builder(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke) {
-            this.target = new Forsendelse(avsender, fysiskPost, dokumentpakke);
+        private Builder(Avsender avsender, FysiskPost fysiskPost, Dokumentpakke dokumentpakke, Mottaker mottaker) {
+            this.target = new Forsendelse(avsender, fysiskPost, dokumentpakke, mottaker);
         }
 
         /**
@@ -119,14 +133,6 @@ public class Forsendelse {
         }
 
         /**
-         * Standard er {@link no.difi.sdp.client2.domain.Prioritet#NORMAL}
-         */
-        public Builder prioritet(Prioritet prioritet) {
-            target.prioritet = prioritet;
-            return this;
-        }
-
-        /**
          * Språkkode i henhold til ISO-639-1 (2 bokstaver). Brukes til å informere postkassen om hvilket språk som benyttes, slik at varselet om mulig kan vises i riktig språkkontekst.
          *
          * Standard er NO.
@@ -137,15 +143,19 @@ public class Forsendelse {
         }
 
         /**
-         * Brukes til å skille mellom ulike kvitteringskøer for samme tekniske avsender. En forsendelse gjort med en
-         * MPC Id vil kun dukke opp i kvitteringskøen med samme MPC Id.
-         *
-         * Standardverdi er blank MPC Id.
-         *
-         * @see no.difi.sdp.client2.domain.kvittering.KvitteringForespoersel.Builder#mpcId(String)
+         * Klientbibliotek har ikke lengre forhold til mpcID.
          */
+        @Deprecated
         public Builder mpcId(String mpcId) {
             target.mpcId = mpcId;
+            return this;
+        }
+
+        /**
+         * Klientbibliotek har ikke lengre forhold til Prioritet.
+         */
+        @Deprecated
+        public Builder prioritet(Prioritet prioritet) {
             return this;
         }
 
@@ -156,9 +166,13 @@ public class Forsendelse {
         }
     }
 
-	public TekniskMottaker getTekniskMottaker() {
+    public Mottaker getMottaker() {
+        return mottaker;
+    }
+
+    public TekniskMottaker getTekniskMottaker() {
 		switch (type) {
-    		case DIGITAL: return digitalPost.getMottaker().getMottakersPostkasse();
+    		case DIGITAL: return mottaker.getMottakersPostkasse();
     		case FYSISK: return fysiskPost.getUtskriftsleverandoer();
     		default: throw new IllegalStateException("Forsendelse av type " + type + " har ikke teknisk mottaker");
 		}

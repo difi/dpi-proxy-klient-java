@@ -3,7 +3,6 @@ package no.difi.sdp.client2.domain;
 import no.difi.sdp.client2.domain.exceptions.NoekkelException;
 import no.difi.sdp.client2.domain.exceptions.SertifikatException;
 import no.difi.sdp.client2.internal.TrustedCertificates;
-import no.digipost.api.interceptors.KeyStoreInfo;
 
 import java.security.Key;
 import java.security.KeyStore;
@@ -14,6 +13,10 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.text.MessageFormat;
 
+/**
+ * Benyttes ikke.
+ */
+@Deprecated
 public class Noekkelpar {
 
     private KeyStore keyStore;
@@ -28,6 +31,7 @@ public class Noekkelpar {
      * @param virksomhetssertifikatAlias   Aliaset kan hentes ut fra virksomhetssertifikatet ved å kjøre `keytool -list -keystore VIRKSOMHETSSERTIFIKAT.p12 -storetype pkcs12`. Selve aliaset er siste avsnitt, første del før komma.
      * @param virksomhetssertifikatPassord Dette er passordet som er satt på selve virksomhetssertifikatet.
      */
+    @Deprecated
     public static Noekkelpar fraKeyStore(KeyStore keyStore, String virksomhetssertifikatAlias, String virksomhetssertifikatPassord) {
         return new Noekkelpar(keyStore, virksomhetssertifikatAlias, virksomhetssertifikatPassord, true);
     }
@@ -39,6 +43,7 @@ public class Noekkelpar {
      * @param virksomhetssertifikatAlias   Aliaset kan hentes ut fra virksomhetssertifikatet ved å kjøre `keytool -list -keystore VIRKSOMHETSSERTIFIKAT.p12 -storetype pkcs12`. Selve aliaset er siste avsnitt, første del før komma.
      * @param virksomhetssertifikatPassord Dette er passordet som er satt på selve virksomhetssertifikatet.
      */
+    @Deprecated
     public static Noekkelpar fraKeyStoreUtenTrustStore(KeyStore keyStore, String virksomhetssertifikatAlias, String virksomhetssertifikatPassord) {
         return new Noekkelpar(keyStore, getStandardTrustStore(), virksomhetssertifikatAlias, virksomhetssertifikatPassord, false);
     }
@@ -51,6 +56,7 @@ public class Noekkelpar {
      * @param virksomhetssertifikatAlias    Aliaset kan hentes ut fra virksomhetssertifikatet ved å kjøre `keytool -list -keystore VIRKSOMHETSSERTIFIKAT.p12 -storetype pkcs12`. Selve aliaset er siste avsnitt, første del før komma.
      * @param virksomhetssertifikatPassword Dette er passordet som er satt på selve virksomhetssertifikatet.
      */
+    @Deprecated
     public static Noekkelpar fraKeyStoreOgTrustStore(KeyStore keyStore, KeyStore trustStore, String virksomhetssertifikatAlias, String virksomhetssertifikatPassword) {
         return new Noekkelpar(keyStore, trustStore, virksomhetssertifikatAlias, virksomhetssertifikatPassword, true);
     }
@@ -75,30 +81,27 @@ public class Noekkelpar {
         this.virksomhetssertifikatPassword = virksomhetssertifikatPassword;
     }
 
+    @Deprecated
     public String getAlias() {
         return virksomhetssertifikatAlias;
     }
 
+    @Deprecated
     public KeyStore getKeyStore() {
         return keyStore;
     }
 
+    @Deprecated
     public KeyStore getTrustStore() {
         return trustStore;
     }
 
-    public KeyStoreInfo getKeyStoreInfo() {
-        if (trustStore != null) {
-            return new KeyStoreInfo(keyStore, trustStore, virksomhetssertifikatAlias, virksomhetssertifikatPassword);
-        }
-
-        return new KeyStoreInfo(keyStore, virksomhetssertifikatAlias, virksomhetssertifikatPassword);
-    }
-
+    @Deprecated
     public Sertifikat getVirksomhetssertifikat() {
         return Sertifikat.fraKeyStore(keyStore, virksomhetssertifikatAlias);
     }
 
+    @Deprecated
     public Certificate[] getVirksomhetssertifikatKjede() {
         try {
             return keyStore.getCertificateChain(virksomhetssertifikatAlias);
@@ -107,6 +110,7 @@ public class Noekkelpar {
         }
     }
 
+    @Deprecated
     public PrivateKey getVirksomhetssertifikatPrivatnoekkel() {
         try {
             Key key = keyStore.getKey(virksomhetssertifikatAlias, virksomhetssertifikatPassword.toCharArray());

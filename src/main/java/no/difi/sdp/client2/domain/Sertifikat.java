@@ -1,13 +1,22 @@
 package no.difi.sdp.client2.domain;
 
 import no.difi.sdp.client2.domain.exceptions.SertifikatException;
-import org.apache.commons.codec.binary.Base64;
 
 import java.io.ByteArrayInputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.cert.*;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
+import static java.util.Base64.getDecoder;
+
+/**
+ * Benyttes ikke.
+ */
+@Deprecated
 public class Sertifikat {
 
     private X509Certificate x509Certificate;
@@ -16,10 +25,12 @@ public class Sertifikat {
         this.x509Certificate = x509Certificate;
     }
 
+    @Deprecated
     public X509Certificate getX509Certificate() {
         return x509Certificate;
     }
 
+    @Deprecated
     public byte[] getEncoded() {
         try {
             return x509Certificate.getEncoded();
@@ -28,14 +39,17 @@ public class Sertifikat {
         }
     }
 
+    @Deprecated
     public static Sertifikat fraBase64X509String(String base64) {
         try {
-            return lagSertifikat(Base64.decodeBase64(base64));
+
+            return lagSertifikat(getDecoder().decode(base64));
         } catch (CertificateException e) {
             throw new SertifikatException("Kunne ikke lese sertifikat fra base64-streng", e);
         }
     }
 
+    @Deprecated
     public static Sertifikat fraByteArray(byte[] certificate) {
         try {
             return lagSertifikat(certificate);
@@ -44,10 +58,12 @@ public class Sertifikat {
         }
     }
 
+    @Deprecated
     public static Sertifikat fraCertificate(X509Certificate certificate) {
         return new Sertifikat(certificate);
     }
 
+    @Deprecated
     public static Sertifikat fraKeyStore(KeyStore keyStore, String alias) {
         Certificate certificate;
         try {

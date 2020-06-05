@@ -1,5 +1,6 @@
 package no.difi.sdp.client2.domain.kvittering;
 
+
 import no.digipost.api.representations.KanBekreftesSomBehandletKvittering;
 
 public class VarslingFeiletKvittering extends ForretningsKvittering {
