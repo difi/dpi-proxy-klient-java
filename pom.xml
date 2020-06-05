@@ -8,9 +8,9 @@
     </properties>
 
     <groupId>no.difi.sdp</groupId>
-    <artifactId>sikker-digital-post-klient-java</artifactId>
+    <artifactId>dpi-proxy-klient-java</artifactId>
     <version>LOCAL-SNAPSHOT</version>
-    <name>Sikker digital post-klient</name>
+    <name>Sikker digital post proxy-klient</name>
 
     <description>
         Klient for sending av sikker digital post fra offentlige virksomheter via integrasjonspunkt.
@@ -19,7 +19,7 @@
     <parent>
         <groupId>no.digipost</groupId>
         <artifactId>digipost-open-super-pom</artifactId>
-        <version>3</version>
+        <version>7</version>
     </parent>
 
     <dependencies>
@@ -134,13 +134,6 @@
     </dependencies>
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>5.1.8.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
@@ -372,9 +365,9 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:git@github.com:difi/sikker-digital-post-klient.git</connection>
-        <developerConnection>scm:git:git@github.com:difi/sikker-digital-post-klient.git</developerConnection>
-        <url>scm:git:git@github.com:difi/sikker-digital-post-klient</url>
+        <connection>scm:git:git@github.com:difi/dpi-proxy-klient-java.git</connection>
+        <developerConnection>scm:git:git@github.com:difi/dpi-proxy-klient-java.git</developerConnection>
+        <url>scm:git:git@github.com:difi/dpi-proxy-klient-java</url>
         <tag>5.2.1</tag>
     </scm>
 

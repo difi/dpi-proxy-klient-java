@@ -83,7 +83,7 @@ Difi har egne dokumenttyper, eller utvidelser, som kan sendes som metadata til h
 med egne mime-typer. Disse utvidelsene benyttes av postkasseleverandørene til å gi en øket brukeropplevelse for innbyggere.
 Les mer om utvidelser på [https://begrep.difi.no/SikkerDigitalPost/](https://begrep.difi.no/SikkerDigitalPost/)
 
-Utvidelsene ligger som generert kode i `sdp-shared`, som er en avhengighet av `sikker-digital-post-klient-java`. Du kan selv lage kode
+Utvidelsene ligger som generert kode i `sdp-shared`, som er en avhengighet av `dpi-proxy-klient-java`. Du kan selv lage kode
 for å generere xml fra instanser av disse typene med JAXB, eller du kan lage xml på andre måter.
 
 ```java
