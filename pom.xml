@@ -211,6 +211,10 @@
                             <exclude>**/*.jks</exclude>
                             <exclude>**/*.jce</exclude>
                             <exclude>**/*.jceks</exclude>
+                            <exclude>**/*.css</exclude>
+                            <exclude>**/*.html</exclude>
+                            <exclude>**/*.js</exclude>
+                            <exclude>**/*.yml</exclude>
                             <exclude>**/*.properties</exclude>
                         </excludes>
                     </configuration>
