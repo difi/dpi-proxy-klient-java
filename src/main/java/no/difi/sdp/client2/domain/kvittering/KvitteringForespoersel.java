@@ -2,6 +2,7 @@ package no.difi.sdp.client2.domain.kvittering;
 
 import no.difi.sdp.client2.domain.Prioritet;
 
+@Deprecated
 public class KvitteringForespoersel {
 
     private Prioritet prioritet;
@@ -11,6 +12,7 @@ public class KvitteringForespoersel {
         this.prioritet = prioritet;
     }
 
+    @Deprecated
     public Prioritet getPrioritet() {
         return prioritet;
     }
@@ -19,10 +21,16 @@ public class KvitteringForespoersel {
      * @param prioritet Hvilken prioritet det forespørres kvittering for. De ulike prioritene kan ses på som egne køer for kvitteringer.
      *                  Dersom en forsendelse er sendt med normal prioritet, vil den kun dukke opp dersom det spørres om kvittering på normal prioritet.
      */
+    @Deprecated
     public static Builder builder(Prioritet prioritet) {
         return new Builder(prioritet);
     }
 
+    public static Builder builder() {
+        return new Builder(Prioritet.NORMAL);
+    }
+
+    @Deprecated
     public String getMpcId() {
         return mpcId;
     }
@@ -43,6 +51,7 @@ public class KvitteringForespoersel {
          *
          * @see no.difi.sdp.client2.domain.Forsendelse.Builder#mpcId(String)
          */
+        @Deprecated
         public Builder mpcId(String mpcId) {
             target.mpcId = mpcId;
             return this;

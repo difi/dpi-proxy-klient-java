@@ -1,6 +1,5 @@
 package no.difi.sdp.client2.domain;
 
-import no.difi.sdp.client2.asice.AsicEAttachable;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -10,19 +9,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
-public class Dokument implements AsicEAttachable {
+public class Dokument implements MedDokumentEgenskaper {
 
     private String tittel;
     private String filnavn;
     private byte[] dokument;
     private String mimeType = "application/pdf";
-    private Optional<MetadataDokument> metadataDocument;
+    private MetadataDokument metadataDocument;
 
     private Dokument(String tittel, String filnavn, byte[] dokument, MetadataDokument metadataDocument) {
         this.tittel = tittel;
         this.filnavn = filnavn;
         this.dokument = dokument;
-        this.metadataDocument = Optional.ofNullable(metadataDocument);
+        this.metadataDocument = metadataDocument;
     }
 
     @Override
@@ -47,13 +46,18 @@ public class Dokument implements AsicEAttachable {
     public String getTittel() {
         return tittel;
     }
+
+    @Override
+    public Optional<String> getDokumentTittel() {
+        return Optional.ofNullable(tittel);
+    }
     
     public Optional<MetadataDokument> getMetadataDocument() {
-        return metadataDocument;
+        return Optional.ofNullable(metadataDocument);
     }
 
     /**
-     * @param tittel Tittel som vises til brukeren gitt riktig sikkerhetsnivå. Kan være null for hoveddokument
+     * @param tittel Tittel som vises til brukeren gitt riktig sikkerhetsnivå.
      * @param filnavn Filnavnet til dokumentet.
      * @param dokument Dokumentet som en strøm.
      */
@@ -67,7 +71,7 @@ public class Dokument implements AsicEAttachable {
     }
 
     /**
-     * @param tittel Tittel som vises til brukeren gitt riktig sikkerhetsnivå. Kan være null for hoveddokument
+     * @param tittel Tittel som vises til brukeren gitt riktig sikkerhetsnivå.
      * @param filnavn Filnavnet til dokumentet.
      * @param dokument Filen som skal sendes. Navnet på filen vil brukes som filnavn ovenfor mottaker.
      */
@@ -106,9 +110,12 @@ public class Dokument implements AsicEAttachable {
             target.mimeType = mimeType;
             return this;
         }
-        
+
+        /**
+         * Kan bare bli satt for hoveddokument.
+         */
         public Builder metadataDocument(MetadataDokument metadataDokument){
-            target.metadataDocument = Optional.of(metadataDokument);
+            target.metadataDocument = metadataDokument;
             return this;
         }
 

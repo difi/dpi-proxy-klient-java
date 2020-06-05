@@ -1,12 +1,9 @@
 package no.difi.sdp.client2;
 
 import no.difi.sdp.client2.domain.Miljo;
-import no.digipost.api.EbmsEndpointUriBuilder;
-import no.digipost.api.MessageFactorySupplier;
 import no.digipost.api.representations.Organisasjonsnummer;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
-import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
@@ -20,17 +17,14 @@ public class KlientKonfigurasjon {
     }
 
     @Deprecated
-    public static Builder builder(String meldingsformidlerRootUri) {
-        return builder(URI.create(meldingsformidlerRootUri));
+    public static Builder builder(String integrasjonspunktRootUri) {
+        return builder(URI.create(integrasjonspunktRootUri));
     }
 
-    @Deprecated
-    public static Builder builder(URI meldingsformidlerRoot) {
-        return builder(new Miljo(null, meldingsformidlerRoot));
+    public static Builder builder(URI integrasjonspunktRoot) {
+        return new Builder(new Miljo(integrasjonspunktRoot));
     }
 
-
-    private final Organisasjonsnummer meldingsformidlerOrganisasjon = Organisasjonsnummer.of("984661185");
 
     private final Miljo miljo;
     private String proxyHost;
@@ -40,19 +34,12 @@ public class KlientKonfigurasjon {
     private long socketTimeoutInMillis = TimeUnit.SECONDS.toMillis(30);
     private long connectTimeoutInMillis = TimeUnit.SECONDS.toMillis(10);
     private long connectionRequestTimeoutInMillis = TimeUnit.SECONDS.toMillis(10);
-    private ClientInterceptor[] soapInterceptors = new ClientInterceptor[0];
     private HttpRequestInterceptor[] httpRequestInterceptors = new HttpRequestInterceptor[0];
     private HttpResponseInterceptor[] httpResponseInterceptors = new HttpResponseInterceptor[0];
-    private MessageFactorySupplier messageFactorySupplier;
-
 
 
     private KlientKonfigurasjon(Miljo miljo) {
         this.miljo = miljo;
-    }
-
-    public MessageFactorySupplier getSoapMessageFactorySupplier() {
-        return MessageFactorySupplier.defaultIfNull(messageFactorySupplier);
     }
 
     public String getProxyHost() {
@@ -87,12 +74,9 @@ public class KlientKonfigurasjon {
         return !isEmpty(proxyHost) && proxyPort > 0;
     }
 
+    @Deprecated
     public Organisasjonsnummer getMeldingsformidlerOrganisasjon() {
-        return meldingsformidlerOrganisasjon;
-    }
-
-    public ClientInterceptor[] getSoapInterceptors() {
-        return soapInterceptors;
+        return Organisasjonsnummer.of("984661185");
     }
 
     public HttpRequestInterceptor[] getHttpRequestInterceptors() {
@@ -107,8 +91,8 @@ public class KlientKonfigurasjon {
         return miljo;
     }
 
-    public EbmsEndpointUriBuilder getMeldingsformidlerRoot() {
-        return EbmsEndpointUriBuilder.meldingsformidlerUri(miljo.getMeldingsformidlerRoot());
+    public URI getIntegrasjonspunktRoot() {
+        return miljo.getIntegrasjonspunktRoot();
     }
 
 
@@ -118,11 +102,6 @@ public class KlientKonfigurasjon {
 
         private Builder(Miljo miljo){
             target = new KlientKonfigurasjon(miljo);
-        }
-
-        public Builder soapMessageFactorySupplier(MessageFactorySupplier messageFactorySupplier) {
-            target.messageFactorySupplier = messageFactorySupplier;
-            return this;
         }
 
         public Builder proxy(String proxyHost, int proxyPort) {
@@ -155,11 +134,6 @@ public class KlientKonfigurasjon {
 
         public Builder maxConnectionPoolSize(int maxConnectionPoolSize) {
             target.maxConnectionPoolSize = maxConnectionPoolSize;
-            return this;
-        }
-
-        public Builder soapInterceptors(ClientInterceptor... soapInterceptors) {
-            target.soapInterceptors = soapInterceptors;
             return this;
         }
 

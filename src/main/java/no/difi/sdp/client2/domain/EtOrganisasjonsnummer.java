@@ -1,5 +1,6 @@
 package no.difi.sdp.client2.domain;
 
+
 import no.digipost.api.representations.Organisasjonsnummer;
 
 public class EtOrganisasjonsnummer implements AvsenderOrganisasjonsnummer, DatabehandlerOrganisasjonsnummer {

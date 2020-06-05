@@ -1,7 +1,7 @@
 package no.difi.sdp.client2.domain;
 
 /**
- * Avsender som beskrevet i <a href="http://begrep.difi.no/SikkerDigitalPost/forretningslag/Aktorer">oversikten over aktører</a>.
+ *
  */
 public class Avsender {
 
