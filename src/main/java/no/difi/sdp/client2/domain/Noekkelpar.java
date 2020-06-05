@@ -106,7 +106,7 @@ public class Noekkelpar {
         try {
             return keyStore.getCertificateChain(virksomhetssertifikatAlias);
         } catch (KeyStoreException e) {
-            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Er KeyStore initialisiert?", e);
+            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Er KeyStore initialisiert? Merk at denne klassen er deprecated og bruk i koden kan fjernes.", e);
         }
     }
 
@@ -115,15 +115,15 @@ public class Noekkelpar {
         try {
             Key key = keyStore.getKey(virksomhetssertifikatAlias, virksomhetssertifikatPassword.toCharArray());
             if (!(key instanceof PrivateKey)) {
-                throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Forventet å få en PrivateKey, fikk " + key.getClass().getCanonicalName());
+                throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Forventet å få en PrivateKey, fikk " + key.getClass().getCanonicalName() + " .  Merk at denne klassen er deprecated og bruk i koden kan fjernes.");
             }
             return (PrivateKey) key;
         } catch (KeyStoreException e) {
-            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Er KeyStore initialisiert?", e);
+            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Er KeyStore initialisiert?  Merk at denne klassen er deprecated og bruk i koden kan fjernes.", e);
         } catch (NoSuchAlgorithmException e) {
-            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Verifiser at nøkkelen er støttet på plattformen", e);
+            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Verifiser at nøkkelen er støttet på plattformen.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.", e);
         } catch (UnrecoverableKeyException e) {
-            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Sjekk at passordet er riktig.", e);
+            throw new NoekkelException("Kunne ikke hente privatnøkkel fra KeyStore. Sjekk at passordet er riktig.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.", e);
         }
     }
 
@@ -137,11 +137,10 @@ public class Noekkelpar {
             if (trustStore.size() < 4) {
                 throw new SertifikatException(MessageFormat.format(
                         "Du initierer {0} med key store og trust store, og da må intermediate- og rotsertifikater til Buypass og Commfides inkluderes" +
-                                "i trust store. Et alternativ er å bruke konstruktør som laster innebygd trust store. Dette kan du lese mer om på" +
-                                " http://difi.github.io/dpi-proxy-klient-java.", Noekkelpar.class.getSimpleName()));
+                                "i trust store. Et alternativ er å bruke konstruktør som laster innebygd trust store.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.", Noekkelpar.class.getSimpleName()));
             }
         } catch (KeyStoreException e) {
-            throw new SertifikatException("Klarte ikke å lese trust store.");
+            throw new SertifikatException("Klarte ikke å lese trust store.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.");
         }
     }
 
@@ -150,11 +149,10 @@ public class Noekkelpar {
             if (keyStore.size() < 5) {
                 throw new SertifikatException(MessageFormat.format(
                         "Du initierer {0} kun med key store, og da må intermediate- og rotsertifikater til Buypass og Commfides inkluderes. " +
-                                "Et alternativ er å bruke konstruktør som laster innebygd trust store. Dette kan du lese mer om på" +
-                                " http://difi.github.io/dpi-proxy-klient-java.", Noekkelpar.class.getSimpleName()));
+                                "Et alternativ er å bruke konstruktør som laster innebygd trust store.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.", Noekkelpar.class.getSimpleName()));
             }
         } catch (KeyStoreException e) {
-            throw new SertifikatException("Klarte ikke å lese key store.");
+            throw new SertifikatException("Klarte ikke å lese key store.  Merk at denne klassen er deprecated og bruk i koden kan fjernes.");
         }
     }
 }
