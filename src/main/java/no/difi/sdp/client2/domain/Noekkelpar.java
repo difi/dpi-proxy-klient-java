@@ -138,7 +138,7 @@ public class Noekkelpar {
                 throw new SertifikatException(MessageFormat.format(
                         "Du initierer {0} med key store og trust store, og da må intermediate- og rotsertifikater til Buypass og Commfides inkluderes" +
                                 "i trust store. Et alternativ er å bruke konstruktør som laster innebygd trust store. Dette kan du lese mer om på" +
-                                " http://difi.github.io/sikker-digital-post-klient-java.", Noekkelpar.class.getSimpleName()));
+                                " http://difi.github.io/dpi-proxy-klient-java.", Noekkelpar.class.getSimpleName()));
             }
         } catch (KeyStoreException e) {
             throw new SertifikatException("Klarte ikke å lese trust store.");
@@ -151,7 +151,7 @@ public class Noekkelpar {
                 throw new SertifikatException(MessageFormat.format(
                         "Du initierer {0} kun med key store, og da må intermediate- og rotsertifikater til Buypass og Commfides inkluderes. " +
                                 "Et alternativ er å bruke konstruktør som laster innebygd trust store. Dette kan du lese mer om på" +
-                                " http://difi.github.io/sikker-digital-post-klient-java.", Noekkelpar.class.getSimpleName()));
+                                " http://difi.github.io/dpi-proxy-klient-java.", Noekkelpar.class.getSimpleName()));
             }
         } catch (KeyStoreException e) {
             throw new SertifikatException("Klarte ikke å lese key store.");

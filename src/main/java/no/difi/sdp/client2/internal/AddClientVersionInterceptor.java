@@ -23,7 +23,7 @@ public class AddClientVersionInterceptor implements HttpRequestInterceptor {
         }
     }
 
-    private final static String CLIENT_USER_AGENT = "difi-sikker-digital-post-klient-java";
+    private final static String CLIENT_USER_AGENT = "difi-dpi-proxy-klient-java";
     private final String javaVersion;
 
     public AddClientVersionInterceptor() {

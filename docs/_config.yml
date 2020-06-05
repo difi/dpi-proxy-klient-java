@@ -1,11 +1,11 @@
 # name of the software
-name: Sikker Digital Post Java
-siteUrlText: difi.github.io/difi-sikker-digital-post-klient-java
+name: Sikker digital post proxy-klient
+siteUrlText: difi.github.io/dpi-proxy-klient-java
 
 # url of the download button
 downloadUrl: http://mvnrepository.com/artifact/no.difi.sdp
 
-baseurl: "/sikker-digital-post-klient-java"
+baseurl: "/dpi-proxy-klient-java"
 
 ## Version handling
 currentCollecion: "v1"
@@ -22,14 +22,14 @@ collections:
 # list of additional links on the right of the top menu
 headerLinks:
   - title: GitHub
-    url: https://github.com/difi/sikker-digital-post-klient-java
+    url: https://github.com/difi/dpi-proxy-klient-java
   - title: Issues
-    url: https://github.com/difi/sikker-digital-post-klient-java/issues
+    url: https://github.com/difi/dpi-proxy-klient-java/issues
 
 # github buttons
 githubButton:
   user: difi
-  repo: sikker-digital-post-klient-java
+  repo: dpi-proxy-klient-java
 
 # twitter buttons
 twitter:

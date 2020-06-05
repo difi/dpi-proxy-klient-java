@@ -8,4 +8,4 @@ isHome: false
 ### Tekniske krav
 
 * Java 1.8 eller nyere
-* Maven for å laste ned _sikker-digital-post-klient-java_
+* Maven for å laste ned _dpi-proxy-klient-java_
