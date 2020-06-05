@@ -1,4 +1,4 @@
-Sikker Digital Post Klient Java
+Sikker Digital Post Proxy Klient Java
 ==============================
 
 ![Build status](https://github.com/difi/dpi-proxy-klient-java/workflows/Build%20snapshot/badge.svg) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/sikker-digital-post-klient-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/dpi-proxy-klient-java)
