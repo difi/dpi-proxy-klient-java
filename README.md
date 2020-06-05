@@ -1,9 +1,9 @@
 Sikker Digital Post Klient Java
 ==============================
 
-[![Build Status](https://travis-ci.org/difi/sikker-digital-post-klient-java.svg?branch=master)](https://travis-ci.org/difi/sikker-digital-post-klient-java) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/sikker-digital-post-klient-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/sikker-digital-post-klient-java)
+![Build status](https://github.com/difi/dpi-proxy-klient-java/workflows/Build%20snapshot/badge.svg) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/sikker-digital-post-klient-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/no.difi.sdp/dpi-proxy-klient-java)
 
-[DOKUMENTASJON FINNER DU HER](https://difi.github.io/sikker-digital-post-klient-java/)
+Dokumentasjon: [https://difi.github.io/sikker-digital-post-klient-java/](https://difi.github.io/dpi-proxy-klient-java/)
 
 ## Om klienten
 Dette er en Java-klient for sending av sikker digital post for det offentlige.
