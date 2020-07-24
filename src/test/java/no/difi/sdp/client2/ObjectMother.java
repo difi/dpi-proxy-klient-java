@@ -27,6 +27,7 @@ import no.difi.sdp.client2.domain.Forsendelse;
 import no.difi.sdp.client2.domain.MetadataDokument;
 import no.difi.sdp.client2.domain.Mottaker;
 import no.difi.sdp.client2.domain.Noekkelpar;
+import no.difi.sdp.client2.domain.fysisk_post.Printinstruksjon;
 import no.digipost.api.representations.Organisasjonsnummer;
 import no.difi.sdp.client2.domain.Sertifikat;
 import no.difi.sdp.client2.domain.digital_post.DigitalPost;
@@ -44,8 +45,11 @@ import javax.xml.bind.JAXBException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -113,11 +117,15 @@ public class ObjectMother {
             , "Oslo"
         ).build();
 
+        List<Printinstruksjon> list = new ArrayList<>();
+        list.add(new Printinstruksjon("key", "value"));
+        list.add(new Printinstruksjon("key2", "value2"));
         return FysiskPost.builder()
             .adresse(konvoluttAdresse)
             .retur(Returhaandtering.DIREKTE_RETUR, konvoluttAdresse)
             .sendesMed(Posttype.A_PRIORITERT)
             .utskrift(Utskriftsfarge.FARGE)
+            .printinstruksjoner(list)
             .build();
     }
 
