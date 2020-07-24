@@ -19,6 +19,8 @@ import no.difi.sdp.client2.domain.ForretningsMelding;
 import no.difi.sdp.client2.domain.ForretningsMeldingType;
 import no.difi.sdp.client2.domain.TekniskMottaker;
 
+import java.util.List;
+
 public class FysiskPost extends ForretningsMelding {
 
     private KonvoluttAdresse mottaker;
@@ -26,6 +28,7 @@ public class FysiskPost extends ForretningsMelding {
     private Utskriftsfarge utskriftsfarge;
     private Returhaandtering returhaandtering;
     private KonvoluttAdresse returadresse;
+    private List<Printinstruksjon> printinstruksjoner;
 
     public FysiskPost() {
         super(ForretningsMeldingType.PRINT);
@@ -59,6 +62,10 @@ public class FysiskPost extends ForretningsMelding {
     @Deprecated
     public TekniskMottaker getUtskriftsleverandoer() {
         return null;
+    }
+
+    public List<Printinstruksjon> getPrintinstruksjoner() {
+        return printinstruksjoner;
     }
 
     public static FysiskPost.Builder builder() {
@@ -97,6 +104,11 @@ public class FysiskPost extends ForretningsMelding {
         public Builder retur(Returhaandtering haandtering, KonvoluttAdresse returadresse) {
             fysiskPost.returhaandtering = haandtering;
             fysiskPost.returadresse = returadresse;
+            return this;
+        }
+
+        public Builder printinstruksjoner(List<Printinstruksjon> printinstruksjoner) {
+            fysiskPost.printinstruksjoner = printinstruksjoner;
             return this;
         }
 
