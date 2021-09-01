@@ -43,8 +43,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.toList;
 import static no.difi.sdp.client2.domain.exceptions.SendException.AntattSkyldig.fraHttpStatusCode;
 
@@ -104,7 +106,7 @@ public class MessageSenderImpl implements MessageSender {
         LOG.debug("Generert følgende json, vil nå sende til integrasjonspunkt: {} ", json);
 
         HttpPost httpPost = new HttpPost(endpointUri + CREATE_ENDPOINT_PATH);
-        httpPost.setEntity(new StringEntity(json));
+        httpPost.setEntity(new StringEntity(json, UTF_8));
         httpPost.setHeader("content-type", "application/json");
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String responseEntity = EntityUtils.toString(response.getEntity());
