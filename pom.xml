@@ -84,7 +84,7 @@
         <dependency>
             <groupId>no.digipost</groupId>
             <artifactId>certificate-validator</artifactId>
-            <version>2.0</version>
+            <version>2.3</version>
         </dependency>
 
         <dependency>
@@ -262,6 +262,7 @@
                                     <include>commons-io</include>
                                     <include>org.bouncycastle:bcpkix-jdk15on</include>
                                     <include>org.bouncycastle:bcprov-jdk15on</include>
+                                    <include>org.bouncycastle:bcutil-jdk15on</include>
                                     <include>org.slf4j</include>
                                     <include>org.apache.commons</include>
                                     <include>org.apache.httpcomponents</include>
